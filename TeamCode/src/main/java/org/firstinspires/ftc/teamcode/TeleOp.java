@@ -15,14 +15,16 @@ public class TeleOp extends LinearOpMode {
 
         if (opModeIsActive() && !isStopRequested()){
             while (opModeIsActive() && !isStopRequested()){
-                actuator.motorLeft(gamepad1.left_stick_y*0.5);
-                actuator.motorRight(gamepad1.right_stick_y*0.5);
+                //actuator.motorLeft(gamepad1.left_stick_y*0.5);
+                //actuator.motorRight(gamepad1.right_stick_y*0.5);
 
-                if (gamepad1.a){
-                    actuator.clawGrabs();
+                if (gamepad1.cross){
+                    //actuator.clawGrabs();
+                    actuator.IntakeMotor(0.5);
                 }
-                else if (gamepad1.b){
-                    actuator.clawDrops();
+                else if (gamepad1.circle){
+                    //actuator.clawDrops();
+                    actuator.IntakeMotor(0);
                 }
             }
         }
