@@ -19,11 +19,12 @@ public class TeleOp extends LinearOpMode {
                 //actuator.motorRight(gamepad1.right_stick_y*0.5);
 
                 if (gamepad1.cross){
-                    //actuator.clawGrabs();
-                    actuator.IntakeMotor(0.5);
+                    actuator.IntakeServosOn();
+                    actuator.IntakeMotor(1);
                 }
                 else if (gamepad1.circle){
                     //actuator.clawDrops();
+                    actuator.IntakeServoOff();
                     actuator.IntakeMotor(0);
                 }
             }

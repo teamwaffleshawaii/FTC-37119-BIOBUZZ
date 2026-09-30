@@ -8,7 +8,8 @@ public class Actuators{
 //    public DcMotor leftMotor;
 //    public DcMotor rightMotor;
     public DcMotor intakeMotor;
-//    public Servo clawServo;
+    public Servo rightIntakeServo;
+    public Servo leftIntakeServo;
 
     public void init(HardwareMap hwMap){
         // motor hardware here
@@ -25,7 +26,8 @@ public class Actuators{
 //        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
           intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 //        // servo hardware here
-//        clawServo = hwMap.get(Servo.class, "clawServo");
+          leftIntakeServo = hwMap.get(Servo.class, "intakeServoLeft");
+          rightIntakeServo = hwMap.get(Servo.class, "intakeServoRight");
     }
 //    public void motorLeft(double power){
 //        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -41,10 +43,16 @@ public class Actuators{
         intakeMotor.setPower(power);
     }
 
-//    public void clawGrabs(){
-//        clawServo.setPosition(0.4); // you need to adjust this
-//    }
-//    public void clawDrops(){
-//        clawServo.setPosition(0.6); // you need to adjust this
-//    }
+    public void IntakeServosOn(){
+        leftIntakeServo.setPosition(0); // you need to adjust this
+        rightIntakeServo.setPosition(1); // you need to adjust this
+    }
+
+    public void IntakeServoOff(){
+        leftIntakeServo.setPosition(0.5); // you need to adjust this
+        rightIntakeServo.setPosition(0.5); // you need to adjust this
+    }
+
+
+
 }
