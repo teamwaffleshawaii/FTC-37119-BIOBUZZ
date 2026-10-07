@@ -34,6 +34,7 @@ public class Actuators{
 //        // servo hardware here
           leftIntakeServo = hwMap.get(Servo.class, "intakeServoLeft");
           rightIntakeServo = hwMap.get(Servo.class, "intakeServoRight");
+          launchServo = hwMap.get(Servo.class, "launchServo");
     }
     public void motorLeft(double power){
         leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -57,20 +58,20 @@ public class Actuators{
     }
 
     public void IntakeServosOn(){
-        leftIntakeServo.setPosition(0); // you need to adjust this
-        rightIntakeServo.setPosition(1); // you need to adjust this
+        leftIntakeServo.setPosition(1); // you need to adjust this
+        rightIntakeServo.setPosition(-1); // you need to adjust this
     }
 
 
     public void IntakeServosOff(){
-        leftIntakeServo.setPosition(0.5); // you need to adjust this
-        rightIntakeServo.setPosition(0.5); // you need to adjust this
+        leftIntakeServo.setPosition(0); // you need to adjust this
+        rightIntakeServo.setPosition(0); // you need to adjust this
     }
     public void launchServoOn(){
         launchServo.setPosition(0); // you need to adjust this
     }
     public void launchServoOff(){
-        launchServo.setPosition(0.5); // you need to adjust this
+        launchServo.setPosition(-0.5); // you need to adjust this
     }
 
 
