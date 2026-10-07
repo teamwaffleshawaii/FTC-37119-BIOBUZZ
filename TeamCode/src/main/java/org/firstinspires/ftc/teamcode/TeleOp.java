@@ -15,8 +15,8 @@ public class TeleOp extends LinearOpMode {
 
         if (opModeIsActive() && !isStopRequested()){
             while (opModeIsActive() && !isStopRequested()){
-                //actuator.motorLeft(gamepad1.left_stick_y*0.5);
-                //actuator.motorRight(gamepad1.right_stick_y*0.5);
+                actuator.motorLeft(gamepad1.left_stick_y*0.5);
+                actuator.motorRight(gamepad1.right_stick_y*0.5);
 
                 if (gamepad1.cross){
                     actuator.IntakeServosOn();
@@ -24,7 +24,7 @@ public class TeleOp extends LinearOpMode {
                 }
                 else if (gamepad1.circle){
                     //actuator.clawDrops();
-                    actuator.IntakeServoOff();
+                    actuator.IntakeServosOff();
                     actuator.IntakeMotor(0);
                 }
             }
