@@ -18,11 +18,11 @@ public class TeleOp extends LinearOpMode {
                 actuator.motorLeft(gamepad1.left_stick_y*0.5);
                 actuator.motorRight(gamepad1.right_stick_y*0.5);
 
-                if (gamepad1.crossWasPressed()){
+                if (gamepad1.left_trigger > 0.5){
                     actuator.IntakeServosOn();
                     actuator.IntakeMotor(1);
                 }
-                else if (gamepad1.crossWasReleased()){
+                else {
                     actuator.IntakeServosOff();
                     actuator.IntakeMotor(0);
                 }
