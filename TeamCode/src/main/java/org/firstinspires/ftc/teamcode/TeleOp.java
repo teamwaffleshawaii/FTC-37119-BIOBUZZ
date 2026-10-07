@@ -18,14 +18,26 @@ public class TeleOp extends LinearOpMode {
                 actuator.motorLeft(gamepad1.left_stick_y*0.5);
                 actuator.motorRight(gamepad1.right_stick_y*0.5);
 
-                if (gamepad1.cross){
+                if (gamepad1.crossWasPressed()){
                     actuator.IntakeServosOn();
                     actuator.IntakeMotor(1);
                 }
-                else if (gamepad1.circle){
-                    //actuator.clawDrops();
+                else if (gamepad1.crossWasReleased()){
                     actuator.IntakeServosOff();
                     actuator.IntakeMotor(0);
+                }
+                if (gamepad1.right_trigger > 0.5){
+                    actuator.setLaunchMotorOn(1); //Adjust the power as needed
+                }
+                else {
+                    actuator.setLaunchMotorOff();
+                }
+
+                if (gamepad1.circleWasReleased()) {
+                    actuator.launchServo();
+                }
+                else if (gamepad1.circleWasPressed()) {
+                    actuator.launchServo();
                 }
             }
         }

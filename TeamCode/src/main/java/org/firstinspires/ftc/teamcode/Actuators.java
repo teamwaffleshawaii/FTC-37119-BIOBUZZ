@@ -9,18 +9,18 @@ public class Actuators{
     public DcMotor rightBackMotor;
     //public DcMotor rightFront;
     //public DcMotor leftFront;
-    //public DcMotor launchMotor;
+    public DcMotor launchMotor;
     public DcMotor intakeMotor;
     public Servo rightIntakeServo;
     public Servo leftIntakeServo;
-
-    //public Servo launchServo;
+    public Servo launchServo;
 
     public void init(HardwareMap hwMap){
         // motor hardware here
         leftBackMotor = hwMap.get(DcMotor.class, "leftBackMotor");
         rightBackMotor = hwMap.get(DcMotor.class, "rightBackMotor");
         intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
+        launchMotor = hwMap.get(DcMotor.class, "launchMotor");
         // motor mode when power is zero
         leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -30,6 +30,7 @@ public class Actuators{
           leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
           rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
           intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        launchMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 //        // servo hardware here
           leftIntakeServo = hwMap.get(Servo.class, "intakeServoLeft");
           rightIntakeServo = hwMap.get(Servo.class, "intakeServoRight");
@@ -42,7 +43,14 @@ public class Actuators{
         rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBackMotor.setPower(power);
     }
-
+    public void setLaunchMotorOn(double power){
+        launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        launchMotor.setPower(power);
+    }
+    public void setLaunchMotorOff(){
+        launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        launchMotor.setPower(0);
+    }
     public void IntakeMotor(double power){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(power);
@@ -53,10 +61,16 @@ public class Actuators{
         rightIntakeServo.setPosition(1); // you need to adjust this
     }
 
+
     public void IntakeServosOff(){
         leftIntakeServo.setPosition(0.5); // you need to adjust this
         rightIntakeServo.setPosition(0.5); // you need to adjust this
     }
+    public void launchServo(){
+        launchServo.setPosition(0); // you need to adjust this
+        rightIntakeServo.setPosition(0.25); // you need to adjust this
+    }
+
     public void goForward(double rotation, double power){
         //this is a function to make your robot go forward
         //use actuator.goForward(1, 0.3); in your auto code
