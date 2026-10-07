@@ -5,11 +5,15 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Actuators{
-//    public DcMotor leftMotor;
-//    public DcMotor rightMotor;
+    //public DcMotor leftMotor;
+    //public DcMotor rightMotor;
+    //public DcMotor rightFront;
+    //public DcMotor leftFront;
     public DcMotor intakeMotor;
     public Servo rightIntakeServo;
     public Servo leftIntakeServo;
+    //public DcMotor shooterMotor;
+    //public Servo
 
     public void init(HardwareMap hwMap){
         // motor hardware here
