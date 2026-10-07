@@ -66,10 +66,13 @@ public class Actuators{
         leftIntakeServo.setPosition(0.5); // you need to adjust this
         rightIntakeServo.setPosition(0.5); // you need to adjust this
     }
-    public void launchServo(){
+    public void launchServoOn(){
         launchServo.setPosition(0); // you need to adjust this
-        rightIntakeServo.setPosition(0.25); // you need to adjust this
     }
+    public void launchServoOff(){
+        launchServo.setPosition(0.5); // you need to adjust this
+    }
+
 
     public void goForward(double rotation, double power){
         //this is a function to make your robot go forward

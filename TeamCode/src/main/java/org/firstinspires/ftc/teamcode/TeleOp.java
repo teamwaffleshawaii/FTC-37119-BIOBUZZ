@@ -34,10 +34,10 @@ public class TeleOp extends LinearOpMode {
                 }
 
                 if (gamepad1.circleWasReleased()) {
-                    actuator.launchServo();
+                    actuator.launchServoOn ();
                 }
                 else if (gamepad1.circleWasPressed()) {
-                    actuator.launchServo();
+                    actuator.launchServoOff();
                 }
             }
         }
