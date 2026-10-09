@@ -20,11 +20,24 @@ public class Auto extends LinearOpMode {
                 sleep(1000);
                 actuator.turnRight(1, 0.3);
                 sleep(1000);
-                actuator.IntakeServosOn();
+
+                actuator.intakeOn();
                 sleep(1000);
-                actuator.IntakeServosOff();
+                actuator.intakeOff();
                 sleep(1000);
-                break;
+
+                actuator.launchMotor(0.75);
+                sleep(1000);
+                actuator.launchMotor(0);
+                sleep(1000);
+
+                actuator.launchServoOn();
+                sleep(1000);
+                actuator.launchServoOff();
+                sleep(1000);
+
+
+                break;  //Break out of loop to stop the code
             }
         }
     }

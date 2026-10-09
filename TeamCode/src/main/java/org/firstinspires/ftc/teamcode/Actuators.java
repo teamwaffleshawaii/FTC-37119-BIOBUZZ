@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Actuators{
     public DcMotor leftBackMotor;
     public DcMotor rightBackMotor;
-    //public DcMotor rightFrontMotor;
-    //public DcMotor leftFrontMotor;
     public DcMotor launchMotor;
     public DcMotor intakeMotor;
     public Servo rightIntakeServo;
@@ -24,6 +22,7 @@ public class Actuators{
         leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        launchMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         // change motor directions
         leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -35,36 +34,33 @@ public class Actuators{
         rightIntakeServo = hwMap.get(Servo.class, "intakeServoRight");
         launchServo = hwMap.get(Servo.class, "launchServo");
     }
-    public void motorLeft(double power){
+    public void leftBackMotor(double power){
         leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackMotor.setPower(power);
     }
-    public void motorRight(double power){
+    public void rightBackMotor(double power){
         rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBackMotor.setPower(power);
     }
-    public void setLaunchMotorOn(double power){
+    public void launchMotor(double power){
         launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         launchMotor.setPower(power);
     }
-    public void setLaunchMotorOff(){
-        launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        launchMotor.setPower(0);
-    }
-    public void IntakeMotor(double power){
+
+    public void intakeOn(){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeMotor.setPower(power);
+        intakeMotor.setPower(1);
+        leftIntakeServo.setPosition(1);
+        rightIntakeServo.setPosition(1);
     }
 
-    public void IntakeServosOn(){
-        leftIntakeServo.setPosition(1); // you need to adjust this
-        rightIntakeServo.setPosition(1); // you need to adjust this
+    public void intakeOff(){
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setPower(0);
+        leftIntakeServo.setPosition(1);
+        rightIntakeServo.setPosition(1);
     }
 
-    public void IntakeServosOff(){
-        leftIntakeServo.setPosition(0); // you need to adjust this
-        rightIntakeServo.setPosition(0); // you need to adjust this
-    }
     public void launchServoOn(){
         launchServo.setPosition(0); // you need to adjust this
     }
