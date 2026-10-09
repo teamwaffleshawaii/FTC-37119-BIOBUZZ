@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp Remote Control")
@@ -15,8 +14,8 @@ public class TeleOp extends LinearOpMode {
 
         if (opModeIsActive() && !isStopRequested()){
             while (opModeIsActive() && !isStopRequested()){
-                actuator.motorLeft(gamepad1.left_stick_y*0.5);
-                actuator.motorRight(gamepad1.right_stick_y*0.5);
+                actuator.motorLeft(gamepad1.left_stick_y * 0.5);
+                actuator.motorRight(gamepad1.right_stick_y * 0.5);
 
                 if (gamepad1.left_trigger > 0.5){
                     actuator.IntakeServosOn();

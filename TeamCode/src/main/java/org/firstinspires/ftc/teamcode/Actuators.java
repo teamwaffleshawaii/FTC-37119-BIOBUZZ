@@ -7,14 +7,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Actuators{
     public DcMotor leftBackMotor;
     public DcMotor rightBackMotor;
-    //public DcMotor rightFront;
-    //public DcMotor leftFront;
+    //public DcMotor rightFrontMotor;
+    //public DcMotor leftFrontMotor;
     public DcMotor launchMotor;
     public DcMotor intakeMotor;
     public Servo rightIntakeServo;
     public Servo leftIntakeServo;
     public Servo launchServo;
-
     public void init(HardwareMap hwMap){
         // motor hardware here
         leftBackMotor = hwMap.get(DcMotor.class, "leftBackMotor");
@@ -24,17 +23,17 @@ public class Actuators{
         // motor mode when power is zero
         leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         // change motor directions
-          leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-          rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-          intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         launchMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//        // servo hardware here
-          leftIntakeServo = hwMap.get(Servo.class, "intakeServoLeft");
-          rightIntakeServo = hwMap.get(Servo.class, "intakeServoRight");
-          launchServo = hwMap.get(Servo.class, "launchServo");
+        // servo hardware here
+        leftIntakeServo = hwMap.get(Servo.class, "intakeServoLeft");
+        rightIntakeServo = hwMap.get(Servo.class, "intakeServoRight");
+        launchServo = hwMap.get(Servo.class, "launchServo");
     }
     public void motorLeft(double power){
         leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -59,9 +58,8 @@ public class Actuators{
 
     public void IntakeServosOn(){
         leftIntakeServo.setPosition(1); // you need to adjust this
-        rightIntakeServo.setPosition(-1); // you need to adjust this
+        rightIntakeServo.setPosition(1); // you need to adjust this
     }
-
 
     public void IntakeServosOff(){
         leftIntakeServo.setPosition(0); // you need to adjust this
@@ -74,7 +72,6 @@ public class Actuators{
         launchServo.setPosition(-0.5); // you need to adjust this
     }
 
-
     public void goForward(double rotation, double power){
         //this is a function to make your robot go forward
         //use actuator.goForward(1, 0.3); in your auto code
@@ -82,8 +79,8 @@ public class Actuators{
         rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (-1440 * rotation));
-        rightBackMotor.setTargetPosition((int) (-1440 * rotation));
+        leftBackMotor.setTargetPosition((int) (-537.7 * rotation));
+        rightBackMotor.setTargetPosition((int) (-537.7 * rotation));
         leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBackMotor.setPower(power);
@@ -98,8 +95,8 @@ public class Actuators{
         rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (1440 * rotation));
-        rightBackMotor.setTargetPosition((int) (1440 * rotation));
+        leftBackMotor.setTargetPosition((int) (537.7 * rotation));
+        rightBackMotor.setTargetPosition((int) (537.7 * rotation));
         leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBackMotor.setPower(power);
@@ -114,8 +111,8 @@ public class Actuators{
         rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (1440 * rotation));
-        rightBackMotor.setTargetPosition((int) (-1440 * rotation));
+        leftBackMotor.setTargetPosition((int) (537.7 * rotation));
+        rightBackMotor.setTargetPosition((int) (-537.7 * rotation));
         leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBackMotor.setPower(power);
@@ -130,8 +127,8 @@ public class Actuators{
         rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (-1440 * rotation));
-        rightBackMotor.setTargetPosition((int) (1440 * rotation));
+        leftBackMotor.setTargetPosition((int) (-537.7 * rotation));
+        rightBackMotor.setTargetPosition((int) (537.7 * rotation));
         leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBackMotor.setPower(power);
