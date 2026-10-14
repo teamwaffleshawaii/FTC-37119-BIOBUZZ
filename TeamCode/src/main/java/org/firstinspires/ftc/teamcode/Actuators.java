@@ -51,14 +51,14 @@ public class Actuators{
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(1);
         leftIntakeServo.setPosition(1);
-        rightIntakeServo.setPosition(1);
+        rightIntakeServo.setPosition(0);
     }
 
     public void intakeOff(){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(0);
-        leftIntakeServo.setPosition(1);
-        rightIntakeServo.setPosition(1);
+        leftIntakeServo.setPosition(0.5);
+        rightIntakeServo.setPosition(0.5);
     }
 
     public void launchServoOn(){
