@@ -26,7 +26,7 @@ public class Auto extends LinearOpMode {
                 actuator.intakeOff();
                 sleep(1000);
 
-                actuator.launchMotor(0.75);
+                actuator.launchMotor(0.50);
                 sleep(1000);
                 actuator.launchMotor(0);
                 sleep(1000);

@@ -50,7 +50,7 @@ public class Actuators{
     public void intakeOn(){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(1);
-        leftIntakeServo.setPosition(1);
+        leftIntakeServo.setPosition(1); //0 to 1
         rightIntakeServo.setPosition(0);
     }
 
@@ -62,10 +62,10 @@ public class Actuators{
     }
 
     public void launchServoOn(){
-        launchServo.setPosition(0); // you need to adjust this
+        launchServo.setPosition(1); // you need to adjust this
     }
     public void launchServoOff(){
-        launchServo.setPosition(-0.5); // you need to adjust this
+        launchServo.setPosition(0.5); // you need to adjust this
     }
 
     public void goForward(double rotation, double power){
