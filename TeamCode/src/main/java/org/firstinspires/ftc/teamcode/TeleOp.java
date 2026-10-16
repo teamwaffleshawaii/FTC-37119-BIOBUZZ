@@ -12,8 +12,8 @@ public class TeleOp extends LinearOpMode {
 
         if (opModeIsActive() && !isStopRequested()){
             while (opModeIsActive() && !isStopRequested()){
-                actuator.leftBackMotor(gamepad1.left_stick_y * 0.5); //adjust the speed as needed
-                actuator.rightBackMotor(gamepad1.right_stick_y * 0.5); //adjust the speed as needed
+                actuator.leftBackMotor(gamepad1.left_stick_y * 1.0); //adjust the speed as needed
+                actuator.rightBackMotor(gamepad1.right_stick_y * 1.0); //adjust the speed as needed
 
                 //Use left trigger to control intake
                 if (gamepad1.left_trigger > 0.5){
