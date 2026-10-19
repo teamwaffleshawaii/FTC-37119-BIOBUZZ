@@ -5,16 +5,16 @@ Running on FTC SDK Version 12.0 (20260907-090034)
 ## Variable Configurations
 **Control Hub:**
 
-Motor 0: leftMotor
+Motor 0: intakeMotor
 
-Motor 1: rightMotor
+Motor 1: rightBackMotor
 
-Motor 2: intakeMotor
+Motor 2: leftBackMotor
 
 Motor 3: launchMotor
 
-Servo 0: leftIntakeServo
+Servo 0: intakeServoRight
 
-Servo 1: rightIntakeServo
+Servo 1: intakeServoLeft
 
 Servo 2: launchServo
