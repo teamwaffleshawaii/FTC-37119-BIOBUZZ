@@ -25,8 +25,8 @@ public class Actuators{
         launchMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         // change motor directions
-        leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         launchMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         // servo hardware here
@@ -60,7 +60,6 @@ public class Actuators{
         leftIntakeServo.setPosition(0.5);
         rightIntakeServo.setPosition(0.5);
     }
-
     public void launchServoOn(){
         launchServo.setPosition(1); // you need to adjust this
     }

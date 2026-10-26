@@ -24,17 +24,23 @@ public class TeleOp extends LinearOpMode {
                 }
 
                 //Use right trigger to turn on launch motor
-                if (gamepad2.right_trigger > 0.5){
+                if (gamepad1.right_trigger > 0.5){
                     actuator.launchMotor(0.45); //Adjust the power as needed
-                    sleep(3000);
-                    actuator.launchServoOn();
-                    sleep(1000);
+                    //sleep(1500);
+                    //actuator.launchServoOn();
+                    //sleep(100);
                 }
                 else {
                     actuator.launchMotor(0);
-                    actuator.launchServoOff();
+                    //actuator.launchServoOff();
                 }
 
+                if (gamepad1.circle) {
+                    actuator.launchServoOn();
+                }
+                else {
+                    actuator.launchServoOff();
+                }
                 //Use circle to launch
 //                if (gamepad2.circle) {
 //                    actuator.launchServoOn();
