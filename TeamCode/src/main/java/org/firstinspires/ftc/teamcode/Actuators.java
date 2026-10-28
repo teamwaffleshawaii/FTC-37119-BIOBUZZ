@@ -73,11 +73,17 @@ public class Actuators{
         windmillMotor.setPower(power);
     }
 
-    public void intakeOn(){
+    public void intakeIn(){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(1);
         leftIntakeServo.setPosition(1); //0 to 1
         rightIntakeServo.setPosition(0);
+    }
+    public void intakeOut(){
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setPower(-1);
+        leftIntakeServo.setPosition(0); //0 to 1
+        rightIntakeServo.setPosition(1);
     }
 
     public void intakeOff(){

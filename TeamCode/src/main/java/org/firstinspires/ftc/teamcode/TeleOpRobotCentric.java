@@ -6,16 +6,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name = "TeleOp Robot Centric Drive")
 public class TeleOpRobotCentric extends LinearOpMode {
     Actuators actuator = new Actuators();
+
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
         float vertical;
         float horizontal;
         float pivot;
         actuator.init(hardwareMap);
         waitForStart();
 
-        if (opModeIsActive() && !isStopRequested()){
-            while (opModeIsActive() && !isStopRequested()){telemetry.update();
+        if (opModeIsActive() && !isStopRequested()) {
+            while (opModeIsActive() && !isStopRequested()) {
+                telemetry.update();
                 drive();
                 intake();
                 launch();
@@ -44,30 +46,37 @@ public class TeleOpRobotCentric extends LinearOpMode {
         telemetry.addData("Right Back Power", actuator.rightBackMotor.getPower());
     }
 
+
     public void intake() {
         //Use left trigger to control intake
-        if (gamepad1.left_trigger > 0.5 || gamepad2.left_trigger > 0.5){
-            actuator.intakeOn();
+        if (gamepad1.a || gamepad2.a) {
+            actuator.intakeIn();
+
         }
+
+        else if (gamepad1.b || gamepad2.b){
+            actuator.intakeOut();
+        }
+
         else {
             actuator.intakeOff();
         }
     }
 
     public void launch() {
-        //Use right trigger to turn on launch motor
-        if (gamepad1.right_trigger > 0.5){
-            actuator.launchMotor(0.425); //Adjust the power as needed
+        if (gamepad2.x) {
+            actuator.launchMotor(0.5); //Adjust the power as needed
         }
-        else {
+        else if (gamepad2.y){
             actuator.launchMotor(0);
         }
 
-        if (gamepad1.circle) {
+        if (gamepad2.right_bumper) {
             actuator.windmillMotor(.50);
         }
         else {
             actuator.windmillMotor(0);
         }
+
     }
 }

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -116,24 +115,29 @@ public class TeleOpFieldCentric extends LinearOpMode {
 
     public void intake() {
         //Use left trigger to control intake
-        if (gamepad1.left_trigger > 0.5 || gamepad2.left_trigger > 0.5){
-            actuator.intakeOn();
+        if (gamepad1.a || gamepad2.a) {
+            actuator.intakeIn();
+
         }
+
+        else if (gamepad1.b || gamepad2.b){
+            actuator.intakeOut();
+        }
+
         else {
             actuator.intakeOff();
         }
     }
 
     public void launch() {
-        //Use right trigger to turn on launch motor
-        if (gamepad1.right_trigger > 0.5){
-            actuator.launchMotor(0.425); //Adjust the power as needed
+        if (gamepad2.x) {
+            actuator.launchMotor(0.5); //Adjust the power as needed
         }
-        else {
+        else if (gamepad2.y){
             actuator.launchMotor(0);
         }
 
-        if (gamepad1.circle) {
+        if (gamepad2.right_bumper) {
             actuator.windmillMotor(.50);
         }
         else {
