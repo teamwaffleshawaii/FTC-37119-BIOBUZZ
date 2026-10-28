@@ -16,9 +16,9 @@ public class TeleOp extends LinearOpMode {
 
         if (opModeIsActive() && !isStopRequested()){
             while (opModeIsActive() && !isStopRequested()){
-                vertical = gamepad1.right_stick_y;
-                horizontal = gamepad1.right_stick_x;
-                pivot = gamepad1.left_stick_x;
+                vertical = gamepad1.left_stick_y;
+                horizontal = gamepad1.left_stick_x;
+                pivot = gamepad1.right_stick_x;
 
                 actuator.leftFrontMotor((pivot + vertical + horizontal));
                 actuator.rightFrontMotor((-pivot + (vertical - horizontal)));

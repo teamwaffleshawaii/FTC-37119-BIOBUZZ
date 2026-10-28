@@ -36,9 +36,9 @@ public class Actuators{
 
         // change motor directions
         leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         launchMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         windmillMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -93,7 +93,7 @@ public class Actuators{
 //        launchServo.setPosition(0.5); // you need to adjust this
 //    }
 
-    public void goForward(double rotation, double power){
+    public void goBackward(double rotation, double power){
         //this is a function to make your robot go forward
         //use actuator.goForward(1, 0.3); in your auto code
         leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -116,11 +116,10 @@ public class Actuators{
         leftFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
         rightFrontMotor.setPower(power);
-
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
-    public void goBackward(double rotation, double power) {
+    public void goForward(double rotation, double power) {
         //this is a function to make your robot go backward
         //use actuator.goBackward(1, 0.3); in your auto code
         leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -146,7 +145,7 @@ public class Actuators{
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
-    public void turnLeft(double rotation, double power) {
+    public void turnRight(double rotation, double power) {
         //this is a function to make your robot turn left
         //use actuator.turnLeft(1, 0.3); in your auto code
         leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -173,7 +172,7 @@ public class Actuators{
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
-    public void turnRight(double rotation, double power) {
+    public void turnLeft(double rotation, double power) {
         //this is a function to make your robot turn right
         //use actuator.turnRight(1, 0.3); in your auto code
         leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
