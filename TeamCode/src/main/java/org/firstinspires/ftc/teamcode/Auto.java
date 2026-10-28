@@ -13,22 +13,20 @@ public class Auto extends LinearOpMode {
             while (opModeIsActive() && !isStopRequested()) {
                 // put what you want your robot to do here
                 //actuator.launchMotor(1, 0.43);
-                sleep(750);
-                actuator.turnLeft(1, 0.5);
-                sleep(750);
-                actuator.goForward(1, 0.5);
-                sleep(750);
-                actuator.intakeOn();
-                sleep(750);
 
-                actuator.launchMotor(0.50);
-                sleep(1000);
+                actuator.goForward(1, 0.2);
+                actuator.goBackward(1, 0.2);
+                actuator.turnLeft(1, 0.2);
+                actuator.turnRight(1, 0.2);
+                actuator.strafeLeft(1, 0.2);
+                actuator.strafeRight(1, 0.2);
+
+                actuator.launchMotor(0.45);
+                sleep(3000);
+                actuator.windmillMotor(1);
+                sleep(1500);
+                actuator.windmillMotor(0);
                 actuator.launchMotor(0);
-                sleep(1000);
-
-                actuator.launchServoOn();
-                sleep(1000);
-                actuator.launchServoOff();
                 sleep(1000);
 
 

@@ -1,20 +1,35 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp Remote Control")
 
 public class TeleOp extends LinearOpMode {
     Actuators actuator = new Actuators();
     @Override
     public void runOpMode(){
+        float vertical;
+        float horizontal;
+        float pivot;
         actuator.init(hardwareMap);
         waitForStart();
 
         if (opModeIsActive() && !isStopRequested()){
             while (opModeIsActive() && !isStopRequested()){
-                actuator.leftBackMotor(gamepad1.left_stick_y * 1.0); //adjust the speed as needed
-                actuator.rightBackMotor(gamepad1.right_stick_y * 1.0); //adjust the speed as needed
+                vertical = gamepad1.right_stick_y;
+                horizontal = gamepad1.right_stick_x;
+                pivot = gamepad1.left_stick_x;
 
+                actuator.leftFrontMotor((pivot + vertical + horizontal));
+                actuator.rightFrontMotor((-pivot + (vertical - horizontal)));
+                actuator.leftBackMotor((pivot + (vertical - horizontal)));
+                actuator.rightBackMotor((-pivot + vertical + horizontal));
+
+                telemetry.addData("Left Front Power", actuator.leftFrontMotor.getPower());
+                telemetry.addData("Right Front Power", actuator.rightFrontMotor.getPower());
+                telemetry.addData("Left Back Power", actuator.leftBackMotor.getPower());
+                telemetry.addData("Right Back Power", actuator.rightBackMotor.getPower());
+                telemetry.update();
                 //Use left trigger to control intake
                 if (gamepad1.left_trigger > 0.5 || gamepad2.left_trigger > 0.5){
                     actuator.intakeOn();
@@ -36,10 +51,10 @@ public class TeleOp extends LinearOpMode {
                 }
 
                 if (gamepad1.circle) {
-                    actuator.launchServoOn();
+                    actuator.windmillMotor(.50);
                 }
                 else {
-                    actuator.launchServoOff();
+                    actuator.windmillMotor(0);
                 }
                 //Use circle to launch
 //                if (gamepad2.circle) {

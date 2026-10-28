@@ -10,10 +10,11 @@ public class Actuators{
     public DcMotor rightBackMotor;
     public DcMotor rightFrontMotor;
     public DcMotor launchMotor;
+    public DcMotor windmillMotor;
     public DcMotor intakeMotor;
     public Servo rightIntakeServo;
     public Servo leftIntakeServo;
-    public Servo launchServo;
+    //public Servo launchServo;
     public void init(HardwareMap hwMap){
         // motor hardware here
         leftBackMotor = hwMap.get(DcMotor.class, "leftBackMotor");
@@ -22,13 +23,16 @@ public class Actuators{
         rightFrontMotor = hwMap.get(DcMotor.class, "rightFrontMotor");
         intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
         launchMotor = hwMap.get(DcMotor.class, "launchMotor");
+        windmillMotor = hwMap.get(DcMotor.class, "windmillMotor");
+
         // motor mode when power is zero
         leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         launchMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        windmillMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // change motor directions
         leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -37,10 +41,11 @@ public class Actuators{
         rightFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         launchMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        windmillMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         // servo hardware here
         leftIntakeServo = hwMap.get(Servo.class, "intakeServoLeft");
         rightIntakeServo = hwMap.get(Servo.class, "intakeServoRight");
-        launchServo = hwMap.get(Servo.class, "launchServo");
+//        launchServo = hwMap.get(Servo.class, "launchServo");
     }
     public void leftBackMotor(double power){
         leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -63,6 +68,11 @@ public class Actuators{
         launchMotor.setPower(power);
     }
 
+    public void windmillMotor(double power){
+        windmillMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        windmillMotor.setPower(power);
+    }
+
     public void intakeOn(){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(1);
@@ -76,12 +86,12 @@ public class Actuators{
         leftIntakeServo.setPosition(0.5);
         rightIntakeServo.setPosition(0.5);
     }
-    public void launchServoOn(){
-        launchServo.setPosition(1); // you need to adjust this
-    }
-    public void launchServoOff(){
-        launchServo.setPosition(0.5); // you need to adjust this
-    }
+//    public void launchServoOn(){
+//        launchServo.setPosition(1); // you need to adjust this
+//    }
+//    public void launchServoOff(){
+//        launchServo.setPosition(0.5); // you need to adjust this
+//    }
 
     public void goForward(double rotation, double power){
         //this is a function to make your robot go forward
@@ -105,6 +115,8 @@ public class Actuators{
         leftBackMotor.setPower(power);
         leftFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
+        rightFrontMotor.setPower(power);
+
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
@@ -130,6 +142,7 @@ public class Actuators{
         leftBackMotor.setPower(power);
         leftFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
+        rightFrontMotor.setPower(power);
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
@@ -155,6 +168,8 @@ public class Actuators{
         leftBackMotor.setPower(power);
         leftFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
+        rightFrontMotor.setPower(power);
+
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
@@ -180,6 +195,8 @@ public class Actuators{
         leftBackMotor.setPower(power);
         leftFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
+        rightFrontMotor.setPower(power);
+
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
@@ -205,6 +222,8 @@ public class Actuators{
         leftBackMotor.setPower(power);
         leftFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
+        rightFrontMotor.setPower(power);
+
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
@@ -230,6 +249,8 @@ public class Actuators{
         leftBackMotor.setPower(power);
         leftFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
+        rightFrontMotor.setPower(power);
+
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
