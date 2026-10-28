@@ -52,16 +52,16 @@ public class Actuators{
         leftBackMotor.setPower(power);
     }
     public void leftFrontMotor(double power){
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBackMotor.setPower(power);
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFrontMotor.setPower(power);
     }
     public void rightBackMotor(double power){
         rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBackMotor.setPower(power);
     }
     public void rightFrontMotor(double power){
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBackMotor.setPower(power);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFrontMotor.setPower(power);
     }
     public void launchMotor(double power){
         launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -23,7 +23,7 @@ public class Sensors {
         RevHubOrientationOnRobot RevOrientation =
                 new RevHubOrientationOnRobot(RevHubOrientationOnRobot.
                         LogoFacingDirection.UP,
-                        RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
+                        RevHubOrientationOnRobot.UsbFacingDirection.RIGHT);
             imu.initialize(new IMU.Parameters(RevOrientation));
     }
 
