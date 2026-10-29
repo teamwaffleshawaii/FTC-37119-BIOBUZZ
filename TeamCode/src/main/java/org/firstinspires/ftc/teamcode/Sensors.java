@@ -12,13 +12,14 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+/** Sensor access is kept separate from mechanisms that move the robot. */
 public class Sensors {
     public IMU imu;
 
     public void init(HardwareMap hwMap) {
-        //TODO: Put sensor hardware here, don't forget to rename deviceNames to match yours
+        // The name "imu" must match the configured hub IMU.
 
-        //TODO: If using the IMU
+        // Describe the hub mounting: logo up, USB ports right. Keep the team's orientation.
         imu = hwMap.get(IMU.class, "imu");
         RevHubOrientationOnRobot RevOrientation =
                 new RevHubOrientationOnRobot(RevHubOrientationOnRobot.
@@ -27,7 +28,8 @@ public class Sensors {
             imu.initialize(new IMU.Parameters(RevOrientation));
     }
 
-    //TODO: Sample class for measuring the REV Control Hub heading through the IMU
+    // Preserve the existing API: angleUnit is accepted, but the result is always degrees.
+    // Yaw measures rotation about the robot's vertical axis.
     public double getHeading(AngleUnit angleUnit) {
         return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES); // if using the imu
     }

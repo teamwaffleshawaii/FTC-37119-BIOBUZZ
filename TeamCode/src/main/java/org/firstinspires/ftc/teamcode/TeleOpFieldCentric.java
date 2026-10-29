@@ -9,6 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class TeleOpFieldCentric extends LinearOpMode {
 
     double reset_angle = 0;
+    // One container connects the configured hardware to each subsystem.
     Actuators actuator = new Actuators();
     Sensors sensor = new Sensors();
 
@@ -17,10 +18,12 @@ public class TeleOpFieldCentric extends LinearOpMode {
         actuator.init(hardwareMap);
         sensor.init(hardwareMap);
 
+        // Initialization finishes before the Driver Station START button is pressed.
         waitForStart();
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
+                // Order matters: heading reset affects the next drive iteration.
                 drive();
                 resetAngle();
                 intake();
@@ -30,7 +33,9 @@ public class TeleOpFieldCentric extends LinearOpMode {
         }
     }
 
+    /** Read driver input and apply the team's unchanged wheel-power calculations. */
     public void drive() {
+        // Reserve some translation magnitude for turning, exactly as before.
         double Protate = - gamepad1.right_stick_x;
         double stick_x = - gamepad1.left_stick_x * Math.sqrt(Math.pow(1-Math.abs(Protate), 2) );
         //Accounts for Protate when limiting magnitude to be less than 1
@@ -80,10 +85,10 @@ public class TeleOpFieldCentric extends LinearOpMode {
         telemetry.addData("Motor Back Left", Px - Protate);
         telemetry.addData("Motor Back Right", Py + Protate);
 
-        actuator.leftFrontMotor((Py - Protate));
-        actuator.leftBackMotor((Px - Protate));
-        actuator.rightBackMotor((Py + Protate));
-        actuator.rightFrontMotor((Px + Protate));
+        actuator.drivetrain.leftFrontMotor((Py - Protate));
+        actuator.drivetrain.leftBackMotor((Px - Protate));
+        actuator.drivetrain.rightBackMotor((Py + Protate));
+        actuator.drivetrain.rightFrontMotor((Px + Protate));
     }
 
     public void resetAngle(){
@@ -107,41 +112,45 @@ public class TeleOpFieldCentric extends LinearOpMode {
             heading = heading - 360;
         }
 
+        // Subtract the stored reference so the driver can redefine the forward heading.
         heading = heading - reset_angle;
         telemetry.addData("Heading (Degrees)", heading);
+        // Preserve the original display formula (it uses /90, not the usual /180).
         telemetry.addData("Heading (Radians)", heading * 3.1415926535 / 90);
         return heading;
     }
 
     public void intake() {
-        //Use left trigger to control intake
+        // Either gamepad can control intake. A wins if A and B are held together.
         if (gamepad1.a || gamepad2.a) {
-            actuator.intakeIn();
+            actuator.intake.intakeIn();
 
         }
 
         else if (gamepad1.b || gamepad2.b){
-            actuator.intakeOut();
+            actuator.intake.intakeOut();
         }
 
         else {
-            actuator.intakeOff();
+            actuator.intake.intakeOff();
         }
     }
 
+    /** Launcher is latched: releasing X does not turn it off; Y does. */
     public void launch() {
         if (gamepad2.x) {
-            actuator.launchMotor(0.5); //Adjust the power as needed
+            actuator.launcher.launchMotor(0.5); //Adjust the power as needed
         }
         else if (gamepad2.y){
-            actuator.launchMotor(0);
+            actuator.launcher.launchMotor(0);
         }
 
+        // Windmill runs only while gamepad 2 right bumper is held.
         if (gamepad2.right_bumper) {
-            actuator.windmillMotor(.50);
+            actuator.windmill.windmillMotor(.50);
         }
         else {
-            actuator.windmillMotor(0);
+            actuator.windmill.windmillMotor(0);
         }
     }
 }

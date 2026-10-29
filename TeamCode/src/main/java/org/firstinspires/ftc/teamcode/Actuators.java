@@ -1,10 +1,23 @@
 package org.firstinspires.ftc.teamcode;
+import org.firstinspires.ftc.teamcode.subsystems.*;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+/**
+ * The robot's hardware setup and subsystem container.
+ * Hardware names must match the Driver Station configuration exactly.
+ * Public device fields and old action methods remain available for existing code.
+ * Call init once before using the subsystems: their constructors only store devices.
+ */
 public class Actuators{
+    public Drivetrain drivetrain;
+    public Intake intake;
+    public Launcher launcher;
+    public Windmill windmill;
+
     public DcMotor leftBackMotor;
     public DcMotor leftFrontMotor;
     public DcMotor rightBackMotor;
@@ -25,6 +38,8 @@ public class Actuators{
         launchMotor = hwMap.get(DcMotor.class, "launchMotor");
         windmillMotor = hwMap.get(DcMotor.class, "windmillMotor");
 
+        // BRAKE resists coasting at zero power; FLOAT lets the launcher coast.
+        // Keep the original device setup sequence.
         // motor mode when power is zero
         leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -34,6 +49,7 @@ public class Actuators{
         launchMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         windmillMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Direction changes the sign used by the SDK to match the motor mounting.
         // change motor directions
         leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -46,51 +62,52 @@ public class Actuators{
         leftIntakeServo = hwMap.get(Servo.class, "intakeServoLeft");
         rightIntakeServo = hwMap.get(Servo.class, "intakeServoRight");
 //        launchServo = hwMap.get(Servo.class, "launchServo");
+
+        // Share these exact hardware objects; constructors do not move or reconfigure them.
+        drivetrain = new Drivetrain(leftBackMotor, leftFrontMotor, rightBackMotor, rightFrontMotor);
+        intake = new Intake(intakeMotor, leftIntakeServo, rightIntakeServo);
+        launcher = new Launcher(launchMotor);
+        windmill = new Windmill(windmillMotor);
+
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void leftBackMotor(double power){
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBackMotor.setPower(power);
+        drivetrain.leftBackMotor(power);
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void leftFrontMotor(double power){
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftFrontMotor.setPower(power);
+        drivetrain.leftFrontMotor(power);
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void rightBackMotor(double power){
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBackMotor.setPower(power);
+        drivetrain.rightBackMotor(power);
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void rightFrontMotor(double power){
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightFrontMotor.setPower(power);
+        drivetrain.rightFrontMotor(power);
     }
+    /** Compatibility entry point; the Launcher subsystem performs this action. */
     public void launchMotor(double power){
-        launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        launchMotor.setPower(power);
+        launcher.launchMotor(power);
     }
 
+    /** Compatibility entry point; the Windmill subsystem performs this action. */
     public void windmillMotor(double power){
-        windmillMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        windmillMotor.setPower(power);
+        windmill.windmillMotor(power);
     }
 
+    /** Compatibility entry point; the Intake subsystem performs this action. */
     public void intakeIn(){
-        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeMotor.setPower(1);
-        leftIntakeServo.setPosition(1); //0 to 1
-        rightIntakeServo.setPosition(0);
+        intake.intakeIn();
     }
+    /** Compatibility entry point; the Intake subsystem performs this action. */
     public void intakeOut(){
-        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeMotor.setPower(-1);
-        leftIntakeServo.setPosition(0); //0 to 1
-        rightIntakeServo.setPosition(1);
+        intake.intakeOut();
     }
 
+    /** Compatibility entry point; the Intake subsystem performs this action. */
     public void intakeOff(){
-        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeMotor.setPower(0);
-        leftIntakeServo.setPosition(0.5);
-        rightIntakeServo.setPosition(0.5);
+        intake.intakeOff();
     }
 //    public void launchServoOn(){
 //        launchServo.setPosition(1); // you need to adjust this
@@ -99,165 +116,29 @@ public class Actuators{
 //        launchServo.setPosition(0.5); // you need to adjust this
 //    }
 
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void goBackward(double rotation, double power){
-        //this is a function to make your robot go forward
-        //use actuator.goForward(1, 0.3); in your auto code
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (-537.7 * rotation));
-        leftFrontMotor.setTargetPosition((int) (-537.7 * rotation));
-        rightBackMotor.setTargetPosition((int) (-537.7 * rotation));
-        rightFrontMotor.setTargetPosition((int) (-537.7 * rotation));
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftBackMotor.setPower(power);
-        leftFrontMotor.setPower(power);
-        rightBackMotor.setPower(power);
-        rightFrontMotor.setPower(power);
-        while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
-        }
+        drivetrain.goBackward(rotation, power);
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void goForward(double rotation, double power) {
-        //this is a function to make your robot go backward
-        //use actuator.goBackward(1, 0.3); in your auto code
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (537.7 * rotation));
-        leftFrontMotor.setTargetPosition((int) (537.7 * rotation));
-        rightBackMotor.setTargetPosition((int) (537.7 * rotation));
-        rightFrontMotor.setTargetPosition((int) (537.7 * rotation));
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftBackMotor.setPower(power);
-        leftFrontMotor.setPower(power);
-        rightBackMotor.setPower(power);
-        rightFrontMotor.setPower(power);
-        while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
-        }
+        drivetrain.goForward(rotation, power);
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void turnRight(double rotation, double power) {
-        //this is a function to make your robot turn left
-        //use actuator.turnLeft(1, 0.3); in your auto code
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (537.7 * rotation));
-        leftFrontMotor.setTargetPosition((int) (537.7 * rotation));
-        rightBackMotor.setTargetPosition((int) (-537.7 * rotation));
-        rightFrontMotor.setTargetPosition((int) (-537.7 * rotation));
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftBackMotor.setPower(power);
-        leftFrontMotor.setPower(power);
-        rightBackMotor.setPower(power);
-        rightFrontMotor.setPower(power);
-
-        while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
-        }
+        drivetrain.turnRight(rotation, power);
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void turnLeft(double rotation, double power) {
-        //this is a function to make your robot turn right
-        //use actuator.turnRight(1, 0.3); in your auto code
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (-537.7 * rotation));
-        leftFrontMotor.setTargetPosition((int) (-537.7 * rotation));
-        rightBackMotor.setTargetPosition((int) (537.7 * rotation));
-        rightFrontMotor.setTargetPosition((int) (537.7 * rotation));
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftBackMotor.setPower(power);
-        leftFrontMotor.setPower(power);
-        rightBackMotor.setPower(power);
-        rightFrontMotor.setPower(power);
-
-        while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
-        }
+        drivetrain.turnLeft(rotation, power);
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void strafeRight(double rotation, double power) {
-        //this is a function to make your robot turn right
-        //use actuator.turnRight(1, 0.3); in your auto code
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (-537.7 * rotation));
-        leftFrontMotor.setTargetPosition((int) (537.7 * rotation));
-        rightBackMotor.setTargetPosition((int) (537.7 * rotation));
-        rightFrontMotor.setTargetPosition((int) (-537.7 * rotation));
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftBackMotor.setPower(power);
-        leftFrontMotor.setPower(power);
-        rightBackMotor.setPower(power);
-        rightFrontMotor.setPower(power);
-
-        while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
-        }
+        drivetrain.strafeRight(rotation, power);
     }
+    /** Compatibility entry point; the Drivetrain subsystem performs this action. */
     public void strafeLeft(double rotation, double power) {
-        //this is a function to make your robot turn right
-        //use actuator.turnRight(1, 0.3); in your auto code
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackMotor.setTargetPosition((int) (537.7 * rotation));
-        leftFrontMotor.setTargetPosition((int) (-537.7 * rotation));
-        rightBackMotor.setTargetPosition((int) (-537.7 * rotation));
-        rightFrontMotor.setTargetPosition((int) (537.7 * rotation));
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftBackMotor.setPower(power);
-        leftFrontMotor.setPower(power);
-        rightBackMotor.setPower(power);
-        rightFrontMotor.setPower(power);
-
-        while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
-        }
+        drivetrain.strafeLeft(rotation, power);
     }
 
 
