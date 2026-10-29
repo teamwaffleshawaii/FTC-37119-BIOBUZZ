@@ -17,8 +17,6 @@ Servo 0: intakeServoRight
 
 Servo 1: intakeServoLeft
 
-Servo 2: launchServo
-
 **Expansion Hub:**
 
 Motor 0: rightBackMotor
