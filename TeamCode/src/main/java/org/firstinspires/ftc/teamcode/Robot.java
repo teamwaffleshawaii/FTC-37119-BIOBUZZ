@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Public device fields and old action methods remain available for existing code.
  * Call init once before using the subsystems: their constructors only store devices.
  */
-public class Actuators{
+public class Robot{
     public Drivetrain drivetrain;
     public Intake intake;
     public Launcher launcher;

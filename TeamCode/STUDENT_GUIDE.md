@@ -10,7 +10,7 @@ All Java files below live in `src/main/java/org/firstinspires/ftc/teamcode/`.
 
 | File | Responsibility |
 | --- | --- |
-| `Actuators.java` | Looks up all motors and servos, applies the existing directions and brake/float settings, then creates the subsystems. |
+| `Robot.java` | Looks up all motors and servos, applies the existing directions and brake/float settings, then creates the subsystems. |
 | `subsystems/Drivetrain.java` | Four wheel-power methods and the six original encoder movement methods. |
 | `subsystems/Intake.java` | Coordinates the intake motor and two intake servos for in, out, and off. |
 | `subsystems/Launcher.java` | Applies launcher motor power. |
@@ -23,17 +23,17 @@ All Java files below live in `src/main/java/org/firstinspires/ftc/teamcode/`.
 ## Follow one command
 
 In TeleOp, `intake()` checks the A and B buttons. If A is pressed, it calls
-`actuator.intake.intakeIn()`. Read that expression from left to right:
+`robot.intake.intakeIn()`. Read that expression from left to right:
 
-1. `actuator` is the hardware/subsystem container for this OpMode.
+1. `robot` is the hardware/subsystem container for this OpMode.
 2. `intake` is the intake subsystem stored in that container.
 3. `intakeIn()` commands the intake motor and both servos.
 
 The `new Intake(...)` constructor receives references to the actual configured
 devices; it does not create additional physical motors. `private final` fields
 keep those references inside the subsystem and prevent reassignment. The devices
-can still receive new commands. `Actuators` keeps its original public fields and
-forwarding methods so older calls such as `actuator.intakeIn()` still work after
+can still receive new commands. `Robot` keeps its original public fields and
+forwarding methods so older calls such as `robot.intakeIn()` still work after
 `init(hardwareMap)`.
 
 ## Existing controls
@@ -88,7 +88,7 @@ argument; the existing telemetry labeled radians still uses its original /90
 formula. These details are documented rather than silently corrected.
 
 For future changes, look in the OpMode for **controls and sequence**, the
-subsystem for **mechanism actions**, and `Actuators.init()` for **hardware setup**.
+subsystem for **mechanism actions**, and `Robot.init()` for **hardware setup**.
 
 ## Checking the change
 

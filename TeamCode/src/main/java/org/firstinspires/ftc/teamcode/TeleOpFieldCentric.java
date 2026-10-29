@@ -10,12 +10,12 @@ public class TeleOpFieldCentric extends LinearOpMode {
 
     double reset_angle = 0;
     // One container connects the configured hardware to each subsystem.
-    Actuators actuator = new Actuators();
+    Robot robot = new Robot();
     Sensors sensor = new Sensors();
 
     @Override
     public void runOpMode() {
-        actuator.init(hardwareMap);
+        robot.init(hardwareMap);
         sensor.init(hardwareMap);
 
         // Initialization finishes before the Driver Station START button is pressed.
@@ -85,10 +85,10 @@ public class TeleOpFieldCentric extends LinearOpMode {
         telemetry.addData("Motor Back Left", Px - Protate);
         telemetry.addData("Motor Back Right", Py + Protate);
 
-        actuator.drivetrain.leftFrontMotor((Py - Protate));
-        actuator.drivetrain.leftBackMotor((Px - Protate));
-        actuator.drivetrain.rightBackMotor((Py + Protate));
-        actuator.drivetrain.rightFrontMotor((Px + Protate));
+        robot.drivetrain.leftFrontMotor((Py - Protate));
+        robot.drivetrain.leftBackMotor((Px - Protate));
+        robot.drivetrain.rightBackMotor((Py + Protate));
+        robot.drivetrain.rightFrontMotor((Px + Protate));
     }
 
     public void resetAngle(){
@@ -123,34 +123,34 @@ public class TeleOpFieldCentric extends LinearOpMode {
     public void intake() {
         // Either gamepad can control intake. A wins if A and B are held together.
         if (gamepad1.a || gamepad2.a) {
-            actuator.intake.intakeIn();
+            robot.intake.intakeIn();
 
         }
 
         else if (gamepad1.b || gamepad2.b){
-            actuator.intake.intakeOut();
+            robot.intake.intakeOut();
         }
 
         else {
-            actuator.intake.intakeOff();
+            robot.intake.intakeOff();
         }
     }
 
     /** Launcher is latched: releasing X does not turn it off; Y does. */
     public void launch() {
         if (gamepad2.x) {
-            actuator.launcher.launchMotor(0.5); //Adjust the power as needed
+            robot.launcher.launchMotor(0.5); //Adjust the power as needed
         }
         else if (gamepad2.y){
-            actuator.launcher.launchMotor(0);
+            robot.launcher.launchMotor(0);
         }
 
         // Windmill runs only while gamepad 2 right bumper is held.
         if (gamepad2.right_bumper) {
-            actuator.windmill.windmillMotor(.50);
+            robot.windmill.windmillMotor(.50);
         }
         else {
-            actuator.windmill.windmillMotor(0);
+            robot.windmill.windmillMotor(0);
         }
     }
 }

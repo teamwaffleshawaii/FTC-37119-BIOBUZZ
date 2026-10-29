@@ -5,12 +5,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Windmill groups the actions for one part of the robot.
  * The OpMode decides WHEN to act; this class describes HOW the hardware acts.
- * Actuators supplies the already-configured devices, so construction sends no commands.
+ * Robot supplies the already-configured devices, so construction sends no commands.
  */
 public class Windmill {
     private final DcMotor windmillMotor;
 
-    /** Store references to the same devices used by Actuators; do not remap hardware. */
+    /** Store references to the same devices used by Robot; do not remap hardware. */
     public Windmill(DcMotor windmillMotor) {
         this.windmillMotor = windmillMotor;
     }

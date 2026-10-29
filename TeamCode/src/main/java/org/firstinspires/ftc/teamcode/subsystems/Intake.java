@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Intake groups the actions for one part of the robot.
  * The OpMode decides WHEN to act; this class describes HOW the hardware acts.
- * Actuators supplies the already-configured devices, so construction sends no commands.
+ * Robot supplies the already-configured devices, so construction sends no commands.
  */
 public class Intake {
     private final DcMotor intakeMotor;
     private final Servo leftIntakeServo;
     private final Servo rightIntakeServo;
 
-    /** Store references to the same devices used by Actuators; do not remap hardware. */
+    /** Store references to the same devices used by Robot; do not remap hardware. */
     public Intake(DcMotor intakeMotor, Servo leftIntakeServo, Servo rightIntakeServo) {
         this.intakeMotor = intakeMotor;
         this.leftIntakeServo = leftIntakeServo;

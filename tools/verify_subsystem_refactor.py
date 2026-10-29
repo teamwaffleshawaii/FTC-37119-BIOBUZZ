@@ -35,7 +35,7 @@ groups = {
     'Launcher': ['launchMotor'], 'Windmill': ['windmillMotor'],
 }
 old = original('Actuators')
-new = (ROOT / 'Actuators.java').read_text()
+new = (ROOT / 'Robot.java').read_text()
 for cls, methods in groups.items():
     subsystem = (ROOT / 'subsystems' / (cls + '.java')).read_text()
     for method in methods:
@@ -53,6 +53,8 @@ assert init[len(expected_setup):] == (
 )
 for name in ['Auto', 'TeleOpRobotCentric', 'TeleOpFieldCentric', 'Sensors']:
     current = (ROOT / (name + '.java')).read_text()
+    current = current.replace('Robot robot = new Robot();', 'Actuators robot = new Actuators();')
+    current = re.sub(r'\brobot\b', 'actuator', current)
     for cls in groups:
         current = current.replace('actuator.' + cls.lower() + '.', 'actuator.')
     assert clean(original(name)) == clean(current), name

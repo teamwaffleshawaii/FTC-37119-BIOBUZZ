@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Drivetrain groups the actions for one part of the robot.
  * The OpMode decides WHEN to act; this class describes HOW the hardware acts.
- * Actuators supplies the already-configured devices, so construction sends no commands.
+ * Robot supplies the already-configured devices, so construction sends no commands.
  */
 public class Drivetrain {
     private final DcMotor leftBackMotor;
@@ -13,7 +13,7 @@ public class Drivetrain {
     private final DcMotor rightBackMotor;
     private final DcMotor rightFrontMotor;
 
-    /** Store references to the same devices used by Actuators; do not remap hardware. */
+    /** Store references to the same devices used by Robot; do not remap hardware. */
     public Drivetrain(DcMotor leftBackMotor, DcMotor leftFrontMotor, DcMotor rightBackMotor, DcMotor rightFrontMotor) {
         this.leftBackMotor = leftBackMotor;
         this.leftFrontMotor = leftFrontMotor;
