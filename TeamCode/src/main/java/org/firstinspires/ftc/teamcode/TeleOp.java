@@ -1,22 +1,21 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Launcher;
 import org.firstinspires.ftc.teamcode.subsystems.Windmill;
-import org.firstinspires.ftc.teamcode.subsystems.RobotSensors;
+import org.firstinspires.ftc.teamcode.subsystems.Sensors;
 
 /**
  * Field-centric TeleOp: IMU heading adjusts the joystick-to-wheel calculations.
  * Compare drive() with robot-centric drive to learn how heading changes the math.
  * Controls and action order remain those of FTC 37119.
  */
-@TeleOp(name = "TeleOp Field Centric Drive")
-public class TeleOpFieldCentric extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
+public class TeleOp extends LinearOpMode {
 
     double reset_angle = 0;
     // Each subsystem owns one mechanism; this OpMode decides when it acts.
@@ -24,7 +23,7 @@ public class TeleOpFieldCentric extends LinearOpMode {
     private final Intake intake = new Intake();
     private final Launcher launcher = new Launcher();
     private final Windmill windmill = new Windmill();
-    private final RobotSensors sensors = new RobotSensors();
+    private final Sensors sensors = new Sensors();
 
     @Override
     public void runOpMode() {
