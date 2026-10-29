@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.subsystems.Robot;
+
 @Autonomous (name = "Autonomous")
 public class Auto extends LinearOpMode {
     // One container connects the configured hardware to each subsystem.
