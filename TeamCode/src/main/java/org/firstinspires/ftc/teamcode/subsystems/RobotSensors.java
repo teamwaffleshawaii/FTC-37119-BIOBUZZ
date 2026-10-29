@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 /** Sensor access is kept separate from mechanisms that move the robot. */
-public class Sensors {
-    public IMU imu;
+public class RobotSensors {
+    private IMU imu;
 
     public void init(HardwareMap hwMap) {
         // The name "imu" must match the configured hub IMU.

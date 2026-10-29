@@ -1,24 +1,39 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Drivetrain groups the actions for one part of the robot.
  * The OpMode decides WHEN to act; this class describes HOW the hardware acts.
- * Robot supplies the already-configured devices, so construction sends no commands.
+ * This subsystem owns its hardware: init looks up and configures its devices.
+ * Hardware names must match this team's Driver Station configuration exactly.
  */
 public class Drivetrain {
-    private final DcMotor leftBackMotor;
-    private final DcMotor leftFrontMotor;
-    private final DcMotor rightBackMotor;
-    private final DcMotor rightFrontMotor;
+    private DcMotor leftBackMotor;
+    private DcMotor leftFrontMotor;
+    private DcMotor rightBackMotor;
+    private DcMotor rightFrontMotor;
 
-    /** Store references to the same devices used by Robot; do not remap hardware. */
-    public Drivetrain(DcMotor leftBackMotor, DcMotor leftFrontMotor, DcMotor rightBackMotor, DcMotor rightFrontMotor) {
-        this.leftBackMotor = leftBackMotor;
-        this.leftFrontMotor = leftFrontMotor;
-        this.rightBackMotor = rightBackMotor;
-        this.rightFrontMotor = rightFrontMotor;
+    /**
+     * Connect and configure this mechanism before waitForStart().
+     * BRAKE resists coasting at zero power; FLOAT allows the launcher to coast.
+     * No power, servo-position, or run-mode commands are added during initialization.
+     */
+    public void init(HardwareMap hardwareMap) {
+        leftBackMotor = hardwareMap.get(DcMotor.class, "leftBackMotor");
+        leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFrontMotor");
+        leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBackMotor = hardwareMap.get(DcMotor.class, "rightBackMotor");
+        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFrontMotor");
+        rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     /** Apply the requested power, selecting RUN_WITHOUT_ENCODER on every call. */
@@ -264,4 +279,9 @@ public class Drivetrain {
         while (leftBackMotor.isBusy() && rightBackMotor.isBusy() && leftFrontMotor.isBusy() && rightFrontMotor.isBusy()){
         }
     }
+    // Telemetry reads power through these methods, keeping motor objects private.
+    public double getLeftFrontPower() { return leftFrontMotor.getPower(); }
+    public double getRightFrontPower() { return rightFrontMotor.getPower(); }
+    public double getLeftBackPower() { return leftBackMotor.getPower(); }
+    public double getRightBackPower() { return rightBackMotor.getPower(); }
 }

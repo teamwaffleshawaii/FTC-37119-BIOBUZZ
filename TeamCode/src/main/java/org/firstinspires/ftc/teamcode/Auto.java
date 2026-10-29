@@ -2,39 +2,53 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.subsystems.Robot;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Launcher;
+import org.firstinspires.ftc.teamcode.subsystems.Windmill;
 
+/**
+ * Autonomous sequence: the OpMode chooses the order and waits between actions.
+ * Drivetrain handles encoder moves; Launcher and Windmill handle shooting.
+ * Controls and action order remain those of FTC 37119.
+ */
 @Autonomous (name = "Autonomous")
 public class Auto extends LinearOpMode {
-    // One container connects the configured hardware to each subsystem.
-    Robot robot = new Robot();
+    // Each subsystem owns one mechanism; this OpMode decides when it acts.
+    private final Drivetrain drivetrain = new Drivetrain();
+    private final Intake intake = new Intake();
+    private final Launcher launcher = new Launcher();
+    private final Windmill windmill = new Windmill();
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
+        // Initialize each mechanism before START, using FTC 37119's own settings.
+        drivetrain.init(hardwareMap);
+        intake.init(hardwareMap);
+        launcher.init(hardwareMap);
+        windmill.init(hardwareMap);
         // Initialization finishes before the Driver Station START button is pressed.
         waitForStart();
         if (opModeIsActive() && !isStopRequested()) {
             while (opModeIsActive() && !isStopRequested()) {
                 // put what you want your robot to do here
-                //robot.launcher.launchMotor(1, 0.43);
 
                 // Each drive call blocks until its existing busy condition becomes false.
                 // Keep the same movement order, rotations, and power.
-                robot.drivetrain.goForward(1, 0.2);
-                robot.drivetrain.goBackward(1, 0.2);
-                robot.drivetrain.turnLeft(1, 0.2);
-                robot.drivetrain.turnRight(1, 0.2);
-                robot.drivetrain.strafeLeft(1, 0.2);
-                robot.drivetrain.strafeRight(1, 0.2);
+                drivetrain.goForward(1, 0.2);
+                drivetrain.goBackward(1, 0.2);
+                drivetrain.turnLeft(1, 0.2);
+                drivetrain.turnRight(1, 0.2);
+                drivetrain.strafeLeft(1, 0.2);
+                drivetrain.strafeRight(1, 0.2);
 
                 // Spin up for 3000 ms, feed for 1500 ms, then stop and wait 1000 ms.
-                robot.launcher.launchMotor(0.45);
+                launcher.setMotorPower(0.45);
                 sleep(3000);
-                robot.windmill.windmillMotor(1);
+                windmill.setMotorPower(1);
                 sleep(1500);
-                robot.windmill.windmillMotor(0);
-                robot.launcher.launchMotor(0);
+                windmill.setMotorPower(0);
+                launcher.setMotorPower(0);
                 sleep(1000);
 
 

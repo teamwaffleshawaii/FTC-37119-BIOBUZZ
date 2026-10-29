@@ -10,12 +10,11 @@ All Java files below live in `src/main/java/org/firstinspires/ftc/teamcode/`.
 
 | File | Responsibility |
 | --- | --- |
-| `Robot.java` | Looks up all motors and servos, applies the existing directions and brake/float settings, then creates the subsystems. |
 | `subsystems/Drivetrain.java` | Four wheel-power methods and the six original encoder movement methods. |
 | `subsystems/Intake.java` | Coordinates the intake motor and two intake servos for in, out, and off. |
 | `subsystems/Launcher.java` | Applies launcher motor power. |
 | `subsystems/Windmill.java` | Applies windmill motor power. |
-| `Sensors.java` | Sets up the IMU and reads yaw (heading). |
+| `subsystems/RobotSensors.java` | Sets up the IMU and reads yaw (heading). |
 | `TeleOpRobotCentric.java` | Reads the controllers and calculates wheel powers relative to the robot. |
 | `TeleOpFieldCentric.java` | Uses controller input and IMU heading to calculate wheel powers. |
 | `Auto.java` | Runs the team's existing movement and launcher sequence. |
@@ -23,18 +22,37 @@ All Java files below live in `src/main/java/org/firstinspires/ftc/teamcode/`.
 ## Follow one command
 
 In TeleOp, `intake()` checks the A and B buttons. If A is pressed, it calls
-`robot.intake.intakeIn()`. Read that expression from left to right:
+`intake.on()`: the `intake` object receives the request, and `on()` commands the
+intake motor and both servos.
 
-1. `robot` is the hardware/subsystem container for this OpMode.
-2. `intake` is the intake subsystem stored in that container.
-3. `intakeIn()` commands the intake motor and both servos.
+Each OpMode declares its subsystems, for example:
 
-The `new Intake(...)` constructor receives references to the actual configured
-devices; it does not create additional physical motors. `private final` fields
-keep those references inside the subsystem and prevent reassignment. The devices
-can still receive new commands. `Robot` keeps its original public fields and
-forwarding methods so older calls such as `robot.intakeIn()` still work after
-`init(hardwareMap)`.
+```java
+private final Intake intake = new Intake();
+```
+
+`new Intake()` creates the Java object. Before START, `intake.init(hardwareMap)`
+looks up and configures its actual motor and servos. `private` keeps hardware
+references inside the subsystem. `final` on the OpMode's subsystem reference
+prevents replacing that subsystem object; it does not prevent hardware commands.
+For telemetry, the drivetrain exposes methods such as `getLeftFrontPower()`
+instead of exposing the motor objects.
+
+## Same organization as FTC 35873
+
+Both teams now use direct subsystem fields in OpModes and an `init(hardwareMap)`
+method in each subsystem. Intake actions are `on()`, `reverse()`, and `off()`;
+launcher power uses `setMotorPower()`; IMU access lives in `RobotSensors`.
+FTC 37119 also has its own `Windmill` subsystem with `setMotorPower()`.
+`Robot.java` and its forwarding methods are no longer needed and have been removed.
+For example, `robot.intake.intakeIn()` becomes `intake.on()`.
+
+The style is shared, but the teams have different hardware and behavior. Do not
+copy 35873's configuration names, servo positions, IMU mounting, controller
+mapping, or motor powers into 37119. The 37119 drive equations remain in its
+OpModes, and its existing individual wheel-command methods preserve motor-command
+order and run-mode behavior. Its encoder waits and heading reset also retain
+37119's behavior rather than adopting 35873's different implementation.
 
 ## Existing controls
 
@@ -79,25 +97,32 @@ behavior change.
 
 ## What this reorganization preserves
 
-Hardware names, setup order, motor directions, brake/float settings, button
-priority, drive formulas, power values, encoder targets, delays, telemetry,
-OpMode names, and call order remain the same. All existing Java files keep their
-paths. In particular, heading reset still follows `drive()` in field-centric
-TeleOp; `Sensors.getHeading(...)` still returns degrees regardless of its
-argument; the existing telemetry labeled radians still uses its original /90
-formula. These details are documented rather than silently corrected.
+Hardware names, motor directions, brake/float settings, button priority, drive
+formulas, power values, encoder targets, delays, telemetry, OpMode names, and
+post-initialization action order remain the same. Initialization now groups the
+devices by subsystem instead of configuring them all in one container. Each
+device receives the same lookup and settings in the same order; no new power,
+servo-position, or run-mode commands are added during initialization.
+
+Heading reset still follows `drive()` in field-centric TeleOp;
+`RobotSensors.getHeading(...)` still returns degrees regardless of its argument;
+the existing telemetry labeled radians still uses its original /90 formula.
+These details are documented rather than silently corrected.
 
 For future changes, look in the OpMode for **controls and sequence**, the
-subsystem for **mechanism actions**, and `Robot.init()` for **hardware setup**.
+subsystem's action methods for **mechanism behavior**, and that subsystem's
+`init()` for **hardware setup**.
 
 ## Checking the change
 
 From the repository root, run `python3 tools/verify_subsystem_refactor.py` to
-compare executable source against the starting commit. This checks that all 15
-moved method bodies and compatibility delegates match, hardware setup is intact,
-and the OpModes differ only in subsystem routing and comments. It is a one-time
+compare executable source against the commit before this style change. It checks
+all 15 mechanism action bodies, each device's initialization commands, power
+getters, all OpMode method bodies and registration names, and sensor behavior.
+It accounts for the new names and direct subsystem calls. This is a one-time
 refactor check, not a general robot test suite.
 
-A full Android build was attempted but could not download Gradle in the editing
-environment. Build in Android Studio before deployment, then verify both TeleOps
-and autonomous on the robot. Source comparison cannot establish physical behavior.
+A full Android build remains unverified: the editing environment could not
+download Gradle. Build in Android Studio before deployment, then verify both
+TeleOps and autonomous on the robot. Source comparison cannot establish physical
+behavior.

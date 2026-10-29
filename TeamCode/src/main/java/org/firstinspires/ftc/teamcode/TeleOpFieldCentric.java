@@ -4,21 +4,36 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.subsystems.Robot;
-import org.firstinspires.ftc.teamcode.subsystems.Sensors;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Launcher;
+import org.firstinspires.ftc.teamcode.subsystems.Windmill;
+import org.firstinspires.ftc.teamcode.subsystems.RobotSensors;
 
+/**
+ * Field-centric TeleOp: IMU heading adjusts the joystick-to-wheel calculations.
+ * Compare drive() with robot-centric drive to learn how heading changes the math.
+ * Controls and action order remain those of FTC 37119.
+ */
 @TeleOp(name = "TeleOp Field Centric Drive")
 public class TeleOpFieldCentric extends LinearOpMode {
 
     double reset_angle = 0;
-    // One container connects the configured hardware to each subsystem.
-    Robot robot = new Robot();
-    Sensors sensor = new Sensors();
+    // Each subsystem owns one mechanism; this OpMode decides when it acts.
+    private final Drivetrain drivetrain = new Drivetrain();
+    private final Intake intake = new Intake();
+    private final Launcher launcher = new Launcher();
+    private final Windmill windmill = new Windmill();
+    private final RobotSensors sensors = new RobotSensors();
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
-        sensor.init(hardwareMap);
+        // Initialize each mechanism before START, using FTC 37119's own settings.
+        drivetrain.init(hardwareMap);
+        intake.init(hardwareMap);
+        launcher.init(hardwareMap);
+        windmill.init(hardwareMap);
+        sensors.init(hardwareMap);
 
         // Initialization finishes before the Driver Station START button is pressed.
         waitForStart();
@@ -87,10 +102,10 @@ public class TeleOpFieldCentric extends LinearOpMode {
         telemetry.addData("Motor Back Left", Px - Protate);
         telemetry.addData("Motor Back Right", Py + Protate);
 
-        robot.drivetrain.leftFrontMotor((Py - Protate));
-        robot.drivetrain.leftBackMotor((Px - Protate));
-        robot.drivetrain.rightBackMotor((Py + Protate));
-        robot.drivetrain.rightFrontMotor((Px + Protate));
+        drivetrain.leftFrontMotor((Py - Protate));
+        drivetrain.leftBackMotor((Px - Protate));
+        drivetrain.rightBackMotor((Py + Protate));
+        drivetrain.rightFrontMotor((Px + Protate));
     }
 
     public void resetAngle(){
@@ -104,7 +119,7 @@ public class TeleOpFieldCentric extends LinearOpMode {
 
         double heading;
         //Get heading from the IMU
-        heading = sensor.getHeading(AngleUnit.DEGREES); //Detecting yaw value from imu
+        heading = sensors.getHeading(AngleUnit.DEGREES); //Detecting yaw value from imu
 
         if(heading < -180) {
             heading = heading + 360;
@@ -125,34 +140,34 @@ public class TeleOpFieldCentric extends LinearOpMode {
     public void intake() {
         // Either gamepad can control intake. A wins if A and B are held together.
         if (gamepad1.a || gamepad2.a) {
-            robot.intake.intakeIn();
+            intake.on();
 
         }
 
         else if (gamepad1.b || gamepad2.b){
-            robot.intake.intakeOut();
+            intake.reverse();
         }
 
         else {
-            robot.intake.intakeOff();
+            intake.off();
         }
     }
 
     /** Launcher is latched: releasing X does not turn it off; Y does. */
     public void launch() {
         if (gamepad2.x) {
-            robot.launcher.launchMotor(0.5); //Adjust the power as needed
+            launcher.setMotorPower(0.5); //Adjust the power as needed
         }
         else if (gamepad2.y){
-            robot.launcher.launchMotor(0);
+            launcher.setMotorPower(0);
         }
 
         // Windmill runs only while gamepad 2 right bumper is held.
         if (gamepad2.right_bumper) {
-            robot.windmill.windmillMotor(.50);
+            windmill.setMotorPower(.50);
         }
         else {
-            robot.windmill.windmillMotor(0);
+            windmill.setMotorPower(0);
         }
     }
 }
