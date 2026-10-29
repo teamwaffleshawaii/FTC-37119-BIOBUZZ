@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "TeleOp Robot Centric Drive")
 public class TeleOpRobotCentric extends LinearOpMode {
+    // One container connects the configured hardware to each subsystem.
     Actuators actuator = new Actuators();
 
     @Override
@@ -13,6 +14,7 @@ public class TeleOpRobotCentric extends LinearOpMode {
         float horizontal;
         float pivot;
         actuator.init(hardwareMap);
+        // Initialization finishes before the Driver Station START button is pressed.
         waitForStart();
 
         if (opModeIsActive() && !isStopRequested()) {
@@ -26,6 +28,7 @@ public class TeleOpRobotCentric extends LinearOpMode {
         }
     }
 
+    /** Read driver input and apply the team's unchanged wheel-power calculations. */
     public void drive() {
         float vertical;
         float horizontal;
@@ -35,10 +38,10 @@ public class TeleOpRobotCentric extends LinearOpMode {
         horizontal = gamepad1.left_stick_x;
         pivot = gamepad1.right_stick_x;
 
-        actuator.leftFrontMotor((pivot + vertical + horizontal));
-        actuator.rightFrontMotor((-pivot + (vertical - horizontal)));
-        actuator.leftBackMotor((pivot + (vertical - horizontal)));
-        actuator.rightBackMotor((-pivot + vertical + horizontal));
+        actuator.drivetrain.leftFrontMotor((pivot + vertical + horizontal));
+        actuator.drivetrain.rightFrontMotor((-pivot + (vertical - horizontal)));
+        actuator.drivetrain.leftBackMotor((pivot + (vertical - horizontal)));
+        actuator.drivetrain.rightBackMotor((-pivot + vertical + horizontal));
 
         telemetry.addData("Left Front Power", actuator.leftFrontMotor.getPower());
         telemetry.addData("Right Front Power", actuator.rightFrontMotor.getPower());
@@ -48,34 +51,36 @@ public class TeleOpRobotCentric extends LinearOpMode {
 
 
     public void intake() {
-        //Use left trigger to control intake
+        // Either gamepad can control intake. A wins if A and B are held together.
         if (gamepad1.a || gamepad2.a) {
-            actuator.intakeIn();
+            actuator.intake.intakeIn();
 
         }
 
         else if (gamepad1.b || gamepad2.b){
-            actuator.intakeOut();
+            actuator.intake.intakeOut();
         }
 
         else {
-            actuator.intakeOff();
+            actuator.intake.intakeOff();
         }
     }
 
+    /** Launcher is latched: releasing X does not turn it off; Y does. */
     public void launch() {
         if (gamepad2.x) {
-            actuator.launchMotor(0.5); //Adjust the power as needed
+            actuator.launcher.launchMotor(0.5); //Adjust the power as needed
         }
         else if (gamepad2.y){
-            actuator.launchMotor(0);
+            actuator.launcher.launchMotor(0);
         }
 
+        // Windmill runs only while gamepad 2 right bumper is held.
         if (gamepad2.right_bumper) {
-            actuator.windmillMotor(.50);
+            actuator.windmill.windmillMotor(.50);
         }
         else {
-            actuator.windmillMotor(0);
+            actuator.windmill.windmillMotor(0);
         }
 
     }
