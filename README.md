@@ -27,4 +27,22 @@ Motor 1: leftBackMotor
 
 Motor 2: windmillMotor
 
-Motor 2: leftBackMotor
+# FTC 37119: Finding your way around the robot code
+
+A **subsystem** is a Java class that groups the actions for one mechanism. An
+**OpMode** is the program selected on the Driver Station. The OpMode decides when
+to act, and the subsystem sends the hardware commands.
+
+## Where to look
+
+All Java files below live in `src/main/java/org/firstinspires/ftc/teamcode/`.
+
+| File | Responsibility |
+| --- | --- |
+| `subsystems/Drivetrain.java` | Four wheel-power methods and the six original encoder movement methods. |
+| `subsystems/Intake.java` | Coordinates the intake motor and two intake servos for in, out, and off. |
+| `subsystems/Launcher.java` | Applies launcher motor power. |
+| `subsystems/Windmill.java` | Applies windmill motor power. |
+| `subsystems/Sensors.java` | Sets up the IMU and reads yaw (heading). |
+| `TeleOp.java` | Uses controller input and IMU heading to calculate wheel powers (field centric). |
+| `Auto.java` | Runs the team's existing movement and launcher sequence. |
