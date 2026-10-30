@@ -163,7 +163,7 @@ public class TeleOp extends LinearOpMode {
 
         // Windmill runs only while gamepad 2 right bumper is held.
         if (gamepad2.right_bumper) {
-            windmill.setMotorPower(.50);
+            windmill.setMotorPower(1);
         }
         else {
             windmill.setMotorPower(0);

@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Windmill;
  * Drivetrain handles encoder moves; Launcher and Windmill handle shooting.
  * Controls and action order remain those of FTC 37119.
  */
-@Autonomous (name = "Autonomous")
-public class Auto extends LinearOpMode {
+@Autonomous (name = "AutoRight")
+public class AutoRight extends LinearOpMode {
     // Each subsystem owns one mechanism; this OpMode decides when it acts.
     private final Drivetrain drivetrain = new Drivetrain();
     private final Intake intake = new Intake();
@@ -35,23 +35,22 @@ public class Auto extends LinearOpMode {
 
                 // Each drive call blocks until its existing busy condition becomes false.
                 // Keep the same movement order, rotations, and power.
-                drivetrain.goForward(1, 0.2);
-                drivetrain.goBackward(1, 0.2);
-                drivetrain.turnLeft(1, 0.2);
-                drivetrain.turnRight(1, 0.2);
-                drivetrain.strafeLeft(1, 0.2);
-                drivetrain.strafeRight(1, 0.2);
 
                 // Spin up for 3000 ms, feed for 1500 ms, then stop and wait 1000 ms.
+                drivetrain.goForward(0.3,0.4);
                 launcher.setMotorPower(0.45);
-                sleep(3000);
-                windmill.setMotorPower(1);
+                sleep(3500);
+                windmill.setMotorPower(0.75);
+                intake.on();
                 sleep(1500);
                 windmill.setMotorPower(0);
+                intake.off();
                 launcher.setMotorPower(0);
                 sleep(1000);
-
-
+                drivetrain.strafeLeft(3,0.4);
+                sleep(100);
+                drivetrain.goForward(6, 0.4);
+                drivetrain.strafeLeft(1,0.4);
                 break;  //Break out of loop to stop the code
             }
         }
