@@ -38,9 +38,9 @@ public class AutoLeft extends LinearOpMode {
 
                 // Spin up for 3000 ms, feed for 1500 ms, then stop and wait 1000 ms.
                 drivetrain.goForward(0.3,0.4);
-                launcher.setMotorVelocity(1315);
-                sleep(3500);
-                windmill.setMotorPower(0.35);
+                launcher.setMotorVelocity(1225);
+                sleep(3750);
+                windmill.setMotorPower(0.45);
                 sleep(100);
                 intake.on();
                 sleep(1500);
@@ -53,7 +53,7 @@ public class AutoLeft extends LinearOpMode {
                 drivetrain.strafeLeft(4,0.4);
                 sleep(100);
                 intake.on();
-                drivetrain.goBackward(0.6, 0.4);
+                drivetrain.goBackward(0.6, 0.65);
                 sleep(250);
                 intake.off();
                 drivetrain.goForward(0.6,0.4);
@@ -69,10 +69,12 @@ public class AutoLeft extends LinearOpMode {
                 windmill.setMotorPower(0);
                 intake.off();
                 launcher.setMotorVelocity(0);
-                sleep(1000);
-                drivetrain.strafeLeft(1,0.8);
-                drivetrain.goForward(6,0.8);
-                drivetrain.strafeLeft(1,0.8);
+                sleep(750);
+                drivetrain.strafeLeft(2.5,0.6);
+                sleep(100);
+                drivetrain.goForward(6,0.6);
+                sleep(100);
+                drivetrain.strafeLeft(1,0.6);
 
                 break;  //Break out of loop to stop the code
             }
