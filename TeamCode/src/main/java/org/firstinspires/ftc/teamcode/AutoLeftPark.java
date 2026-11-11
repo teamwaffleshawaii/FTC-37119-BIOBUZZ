@@ -33,10 +33,7 @@ public class AutoLeftPark extends LinearOpMode {
             while (opModeIsActive() && !isStopRequested()) {
                 // put what you want your robot to do here
 
-                // Each drive call blocks until its existing busy condition becomes false.
-                // Keep the same movement order, rotations, and power.
 
-                // Spin up for 3000 ms, feed for 1500 ms, then stop and wait 1000 ms.
                 drivetrain.goForward(1, 0.4);
 
 

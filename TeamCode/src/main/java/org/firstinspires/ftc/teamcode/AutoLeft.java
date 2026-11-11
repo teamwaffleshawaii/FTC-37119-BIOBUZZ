@@ -36,45 +36,22 @@ public class AutoLeft extends LinearOpMode {
                 // Each drive call blocks until its existing busy condition becomes false.
                 // Keep the same movement order, rotations, and power.
 
-                // Spin up for 3000 ms, feed for 1500 ms, then stop and wait 1000 ms.
-                drivetrain.goForward(0.3,0.4);
-                launcher.setMotorVelocity(1100);
-                sleep(3750);
-                windmill.setMotorPower(0.45);
-                sleep(100);
+
+                drivetrain.goForward(0.3,0.25);
+                launcher.setMotorVelocity(1195);
+                sleep(3550);
+                windmill.setMotorPower(0.37);
                 intake.on();
-                sleep(1500);
+                sleep(2250);
                 windmill.setMotorPower(0);
-                intake.off();
                 launcher.setMotorVelocity(0);
-                sleep(1000);
-                drivetrain.goForward(0.3,0.4);
-                sleep(150);
-                drivetrain.strafeLeft(4,0.4);
-                sleep(100);
-                intake.on();
-                drivetrain.goBackward(0.6, 0.65);
-                sleep(250);
                 intake.off();
-                drivetrain.goForward(0.6,0.4);
-                drivetrain.strafeRight(4,0.4);
-                sleep(250);
-                drivetrain.goBackward(0.3,0.4);
-                launcher.setMotorVelocity(1315);
-                sleep(3500);
-                windmill.setMotorPower(0.35);
+                sleep(200);
+                //drivetrain.strafeLeft(2.5,0.6);
                 sleep(100);
-                intake.on();
-                sleep(1500);
-                windmill.setMotorPower(0);
-                intake.off();
-                launcher.setMotorVelocity(0);
-                sleep(750);
-                drivetrain.strafeLeft(2.5,0.6);
+                //drivetrain.goForward(6.15,0.6);
                 sleep(100);
-                drivetrain.goForward(6,0.6);
-                sleep(100);
-                drivetrain.strafeLeft(1,0.6);
+                //drivetrain.strafeLeft(1.25,0.6);
 
                 break;  //Break out of loop to stop the code
             }
