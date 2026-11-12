@@ -28,7 +28,7 @@ public class Launcher {
     private DcMotorEx launchMotor;
 
     // PIDF coefficients (tune for this specific launcher)
-    public static final double NEW_P = 70;
+    public static final double NEW_P = 85;
     public static final double NEW_I = 0.0;
     public static final double NEW_D = 0.03;
     public static final double NEW_F = 12;
