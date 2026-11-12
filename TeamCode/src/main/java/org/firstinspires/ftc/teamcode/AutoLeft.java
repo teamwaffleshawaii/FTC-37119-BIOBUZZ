@@ -38,9 +38,9 @@ public class AutoLeft extends LinearOpMode {
 
 
                 drivetrain.goForward(0.3,0.25);
-                launcher.setMotorVelocity(1195);
-                sleep(3550);
-                windmill.setMotorPower(0.37);
+                launcher.setMotorVelocity(975);
+                sleep(2550);
+                windmill.setMotorPower(0.4);
                 intake.on();
                 sleep(2250);
                 windmill.setMotorPower(0);

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 /**
  * Launcher groups the actions for one part of the robot.
- * The OpMode decides WHEN to act; this class describes HOW the hardware acts.
+  *The OpMode decides WHEN to act; this class describes HOW the hardware acts.
  *
  * PIDF implementation adapted from the official FTC SDK example:
  * ConceptChangePIDF
@@ -31,7 +31,7 @@ public class Launcher {
     public static final double NEW_P = 70;
     public static final double NEW_I = 0.0;
     public static final double NEW_D = 0.03;
-    public static final double NEW_F = 20;
+    public static final double NEW_F = 12;
 
     // Velocity configuration (ticks per second)
     private static final double VELOCITY_TOLERANCE = 25.0;
