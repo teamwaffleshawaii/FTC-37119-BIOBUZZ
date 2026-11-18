@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Launcher;
 import org.firstinspires.ftc.teamcode.subsystems.Windmill;
 import org.firstinspires.ftc.teamcode.subsystems.Sensors;
+
 
 /**
  * Field-centric TeleOp: IMU heading adjusts the joystick-to-wheel calculations.
@@ -24,6 +26,7 @@ public class TeleOp extends LinearOpMode {
     private final Launcher launcher = new Launcher();
     private final Windmill windmill = new Windmill();
     private final Sensors sensors = new Sensors();
+    private int lastPosition = 0;
 
     @Override
     public void runOpMode() {
@@ -44,6 +47,8 @@ public class TeleOp extends LinearOpMode {
                 resetAngle();
                 intake();
                 launch();
+
+                telemetry.addData("velocity", launcher.getMotorVelocity());
                 telemetry.update();
             }
         }
@@ -155,7 +160,7 @@ public class TeleOp extends LinearOpMode {
     /** Launcher is latched: releasing X does not turn it off; Y does. */
     public void launch() {
         if (gamepad2.x || gamepad1.x) {
-            launcher.setMotorVelocity(1100); //Adjust the power as needed
+            launcher.setMotorVelocity(1060); //Adjust the power as needed
         }
         else if (gamepad2.y || gamepad1.y){
             launcher.setMotorVelocity(0);
@@ -163,10 +168,16 @@ public class TeleOp extends LinearOpMode {
 
         // Windmill runs only while gamepad 2 right bumper is held.
         if (gamepad2.right_bumper || gamepad1.right_bumper) {
-            windmill.setMotorPower(1);
+            windmill.setMotorPower(0.6);
         }
         else {
             windmill.setMotorPower(0);
         }
+        /**if (gamepad2.left_bumper || gamepad1.left_bumper) {
+            windmill.setMotorPower(-0.6);
+        }
+        else {
+            windmill.setMotorPower(0);
+        }*/
     }
 }
