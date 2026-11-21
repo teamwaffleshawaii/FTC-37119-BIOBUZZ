@@ -27,16 +27,16 @@ public class LauncherTEST extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive() && !isStopRequested()) {
-            setLauncher(1060);
-            waitAndLog("Spin up", 1850);
+            setLauncher(1095);
+            waitAndLog("Spin up", 2250);
 
-            windmill.setMotorPower(0.6);
+            windmill.setMotorPower(0.45);
             waitAndLog("Shot 1", 1550);
 
             windmill.setMotorPower(0);
             waitAndLog("Recover", 750);
 
-            windmill.setMotorPower(0.6);
+            windmill.setMotorPower(0.45);
             waitAndLog("Shot 2", 750);
 
             setLauncher(0);

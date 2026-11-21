@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -13,6 +14,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 public class Intake {
     private DcMotor intakeMotor;
+    private Servo intakeServoRight;
+    private Servo intakeServoLeft;
+
 
 
 
@@ -23,6 +27,8 @@ public class Intake {
      */
     public void init(HardwareMap hardwareMap) {
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
+        intakeServoRight = hardwareMap.get(Servo.class, "intakeServoRight");
+        intakeServoLeft = hardwareMap.get(Servo.class, "intakeServoLeft");
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
@@ -31,12 +37,16 @@ public class Intake {
     public void on(){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(1);
+        intakeServoRight.setPosition(1);
+        intakeServoLeft.setPosition(0);
     }
 
     /** Reverse intake: power -1, left servo 0, right servo 1. */
     public void reverse(){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(-1);
+        intakeServoRight.setPosition(0);
+        intakeServoLeft.setPosition(1);
 
     }
 
@@ -44,6 +54,8 @@ public class Intake {
     public void off(){
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setPower(0);
+        intakeServoRight.setPosition(0.5);
+        intakeServoLeft.setPosition(0.5);
 
     }
 }

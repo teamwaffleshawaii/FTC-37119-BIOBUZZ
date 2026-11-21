@@ -34,7 +34,7 @@ public class AutoLeftPark extends LinearOpMode {
                 // put what you want your robot to do here
 
 
-                drivetrain.goForward(1, 0.4);
+                drivetrain.strafeRight(1, 0.4);
 
 
 
