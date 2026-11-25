@@ -158,7 +158,7 @@ public class TeleOp2Driiver extends LinearOpMode {
     /** Launcher is latched: releasing X does not turn it off; Y does. */
     public void launch() {
         if (gamepad2.x  ) {
-            launcher.setMotorVelocity(1095); //Adjust the power as needed
+            launcher.setMotorVelocity(1115); //Adjust the power as needed
         }
         else if (gamepad2.y ){
             launcher.setMotorVelocity(0);
@@ -166,7 +166,7 @@ public class TeleOp2Driiver extends LinearOpMode {
 
         // Windmill runs only while gamepad 2 right bumper is held.
         if (gamepad2.right_bumper) {
-            windmill.setMotorPower(0.45);
+            windmill.setMotorPower(0.42);
         }
         else {
             windmill.setMotorPower(0);

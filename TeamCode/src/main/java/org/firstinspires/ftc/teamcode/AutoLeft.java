@@ -37,19 +37,21 @@ public class AutoLeft extends LinearOpMode {
                 // Keep the same movement order, rotations, and power.
 
 
+                //sleep(4500);
                 drivetrain.goForward(0.5,0.25);
-                launcher.setMotorVelocity(1100);
+                launcher.setMotorVelocity(1110);
                 sleep(2050);
-                windmill.setMotorPower(0.42);
+                windmill.setMotorPower(0.37);
                 //intake.on();
                 sleep(1550);
                 windmill.setMotorPower(0);
                 sleep(250);
-                windmill.setMotorPower(0.45);
+                windmill.setMotorPower(0.37);
                 sleep(750);
                 windmill.setMotorPower(0);
                 launcher.setMotorVelocity(0);
                 //intake.off();
+                //sleep(2500);
                /** sleep(200);
                 drivetrain.strafeLeft(3.8,0.6);
                 sleep(100);
@@ -69,9 +71,9 @@ public class AutoLeft extends LinearOpMode {
                 */sleep(250);
                 drivetrain.strafeLeft(3,0.6);
                 sleep(100);
-                drivetrain.goForward(5.85,0.6);
+                drivetrain.goForward(5.8,0.6);
                 sleep(100);
-                drivetrain.strafeLeft(0.7,0.6);
+                drivetrain.strafeLeft(0.55,0.6);
                 //drivetrain.turnLeft(1,0.4);
 
                 break;  //Break out of loop to stop the code

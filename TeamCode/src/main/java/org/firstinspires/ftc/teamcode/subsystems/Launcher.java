@@ -11,13 +11,14 @@ public class Launcher {
 
     private DcMotorEx launchMotor;
 
-    // PIDF gains (direct-drive 6000 RPM motor, 28 ticks/rev, max ~2800 ticks/sec)
-    //MAXIMUM F value is from 32767/2800(max ticks/sec)
-    //MAXMIMUM F VALUE IS 11.7
-    private static final double P = 35; //change this
+    /** PIDF gains (direct-drive 6000 RPM motor, 28 ticks/rev, max ~2800 ticks/sec)
+    *MAXIMUM F value is from 32767/2800(max ticks/sec)
+    *MAXMIMUM F VALUE IS 11.7
+    **/
+    private static final double P = 30; //change this
     private static final double I = 0.0;//Don't need to change since its smoothing error
     private static final double D = 0.0;//dampens probably doesn't have to change
-    private static final double F = 10; //supplies motor with power at all times dangerous do not increase too high
+    private static final double F = 10.3; //supplies motor with power at all times dangerous do not increase too high
 
     // Ticks per second
     private static final double VELOCITY_TOLERANCE = 25.0;
